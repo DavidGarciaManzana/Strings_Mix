@@ -36,12 +36,28 @@
 // s2 = "my frie n d Joh n has ma n y ma n y frie n ds n&"
 // mix(s1, s2) --> "1:mmmmmm/E:nnnnnn/1:aaaa/1:hhh/2:yyy/2:dd/2:ff/2:ii/2:rr/E:ee/E:ss"
 
-export const mix = (s1: string, s2: string): string => {
-    // your code here!
+let mix = (s1: string, s2: string): string => {
+    //1.-Create 2 objects to save the strings without spaces and other characters
+    let obj1: { [key: string]: number } = {}
+    let obj2: { [key: string]: number } = {}
+    //2.- A loop to save the letters in the first object 
+    for (let letter of s1) {
+        //3.-Get rid of spaces and other characters using regex
+        if (/^[a-z]+$/.test(letter)) {
+            //4.-Insert every letter to the object to know how many of that letters the string has
+            //**Using the if just for the first time 
+            if(!obj1[letter]){
+                obj1[letter] = 1
+            }else {
+                obj1[letter] += 1
+            }
+        }
+
+    }console.log(obj1)
     return ""
 }
 
 // Testing
 mix("Are they here", "yes, they are here")//, "2:eeeee/2:yy/=:hh/=:rr");
-mix("looping is fun but dangerous", "less dangerous than coding")//, "1:ooo/1:uuu/2:sss/=:nnn/1:ii/2:aa/2:dd/2:ee/=:gg");
-mix(" In many languages", " there's a pair of functions")//, "1:aaa/1:nnn/1:gg/2:ee/2:ff/2:ii/2:oo/2:rr/2:ss/2:tt");
+// mix("looping is fun but dangerous", "less dangerous than coding")//, "1:ooo/1:uuu/2:sss/=:nnn/1:ii/2:aa/2:dd/2:ee/=:gg");
+// mix(" In many languages", " there's a pair of functions")//, "1:aaa/1:nnn/1:gg/2:ee/2:ff/2:ii/2:oo/2:rr/2:ss/2:tt");
