@@ -55,7 +55,9 @@ let mix = (s1: string, s2: string): string => {
     function sortObjectByValue(obj: any): any {
         //12.-Convert the onbject into an array of arrays
         const entries = Object.entries(obj);
-        //13.-Sort the array to get the 
+        //13.-Sort the array by the number value "[[0:1],[0:1]]" = "[[a:7],[b:3]]"
+        //** Apparenlty TS cannot tell that the second element of each array is a
+        //** number 🙄 so i have to use the "Unkown" type
         entries.sort((a: [string, unknown], b: [string, unknown]): number => {
             return (b[1] as number) - (a[1] as number);
         });
