@@ -39,10 +39,10 @@ let mix = (s1: string, s2: string): string => {
         let value1: number;
         let value2: number;
         letters.forEach((letter) => {
-            if (obj1[letter] && obj1[letter]>1) { value1 = obj1[letter] } else {
+            if (obj1[letter] && obj1[letter] > 1) { value1 = obj1[letter] } else {
                 value1 = 0
             }
-            if (obj2[letter] && obj2[letter]>1) { value2 = obj2[letter] } else {
+            if (obj2[letter] && obj2[letter] > 1) { value2 = obj2[letter] } else {
                 value2 = 0
             }
             //10.-Using the Math.max you get only the higher value and saved it the objFusion
@@ -51,6 +51,25 @@ let mix = (s1: string, s2: string): string => {
         return objFusion
     }
     objFusion = getHighestValues(objFusion, obj1, obj2)
+    // 11.-Order the objFusion so the values goes from the highest to the lowest
+    function sortObjectByValue(obj: any): any {
+        //12.-Convert the onbject into an array of arrays
+        const entries = Object.entries(obj);
+        //13.-Sort the array to get the 
+        entries.sort((a: [string, unknown], b: [string, unknown]): number => {
+            return (b[1] as number) - (a[1] as number);
+        });
+
+        const sortedObj: any = {};
+
+        entries.forEach(entry => {
+            sortedObj[entry[0]] = entry[1];
+        });
+        return sortedObj;
+    }
+    objFusion = sortObjectByValue(objFusion);
+
+
     console.log(objFusion)
     return ""
 }
