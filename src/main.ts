@@ -55,13 +55,12 @@ let mix = (s1: string, s2: string): string => {
     function sortObjectByValue(obj: { [key: string]: number }): any {
         //12.-Convert the onbject into an array of arrays
         const entries = Object.entries(obj);
-        //13.-Sort the array by the number value "[[0:1],[0:1]]" = "[[a:7],[b:3]]"
+        //13.-Sort the array by the number value "[[0:1],[0:1],...]" 
         entries.sort((a: [string, number], b: [string, number]): number => {
-            return (b[1] ) - (a[1]);
+            return (b[1]) - (a[1]);
         });
-
-        const sortedObj: any = {};
-
+        //14.-Save the sorted array and return it as an object
+        const sortedObj: { [key: string]: number } = {};
         entries.forEach(entry => {
             sortedObj[entry[0]] = entry[1];
         });
@@ -69,12 +68,39 @@ let mix = (s1: string, s2: string): string => {
     }
     objFusion = sortObjectByValue(objFusion);
 
+    let result: string = "";
+    let slashIndex = 0;
+    let slash;
+    for (let letter of Object.keys(objFusion)) {
+        if(slashIndex == 0 ){
+            slash = ''
+        } else { slash ='/'}
+        if (objFusion[letter] > 1) {
+            if (obj1[letter] && obj2[letter]) {
+                if (obj1[letter] > obj2[letter]) {
+                    result += `${slash}1:${letter.repeat(obj1[letter])}`
+                } else if (obj1[letter] < obj2[letter]) {
+                    result += `${slash}2:${letter.repeat(obj2[letter])}`
+                } else if (obj1[letter] == obj2[letter]) {
+                    result += `${slash}=:${letter.repeat(obj1[letter])}`
+                }
+            } else if (!obj1[letter]){
+                result += `${slash}2:${letter.repeat(obj2[letter])}`
+            }
+             else if (!obj2[letter]){
+                result += `${slash}1:${letter.repeat(obj1[letter])}`
+            }
 
-    console.log(objFusion)
+
+        }
+        slashIndex++
+    }
+    console.log('result:                      '+result)
+    // console.log(objFusion)
+    // console.log(obj1, obj2)
     return ""
 }
-
 // Testing
 mix("Are they here", "yes, they are here")//, "2:eeeee/2:yy/=:hh/=:rr");
-// mix("looping is fun but dangerous", "less dangerous than coding")//, "1:ooo/1:uuu/2:sss/=:nnn/1:ii/2:aa/2:dd/2:ee/=:gg");
-// mix(" In many languages", " there's a pair of functions")//, "1:aaa/1:nnn/1:gg/2:ee/2:ff/2:ii/2:oo/2:rr/2:ss/2:tt");
+mix("looping is fun but dangerous", "less dangerous than coding")//, "1:ooo/1:uuu/2:sss/=:nnn/1:ii/2:aa/2:dd/2:ee/=:gg");
+mix(" In many languages", " there's a pair of functions")//, "1:aaa/1:nnn/1:gg/2:ee/2:ff/2:ii/2:oo/2:rr/2:ss/2:tt");
